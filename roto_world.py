@@ -9,9 +9,9 @@ from collections import defaultdict as dd
 class RWScraper(object):
     '''
     Class for grabbing player news from www.rotoworld.com/playernews/nfl/football-player-news
-    for any given day, default is the current day. 
-    Methods: scrape -     If a specific day is to be specified for scraping, 
-                          it should be formatted as a tuple: 
+    for any given day, default is the current day.
+    Methods: scrape -     If a specific day is to be specified for scraping,
+                          it should be formatted as a tuple:
                             (month, day, year)
                           and passed to the scrape method through the date argument.
 
@@ -30,6 +30,7 @@ class RWScraper(object):
         self._same_day = True
         self._date = (0, date.today().day, 0)
 
+
     def _get_player_info(self, player_box):
         date_str = player_box.select('.date')[0].contents[0]
         date = int(re.findall(r'^.* (\d+)[ ,].*$', date_str)[0])
@@ -39,7 +40,7 @@ class RWScraper(object):
         player_info = player_box.select('.player a')
         player_dict['team'] = player_info[1].contents[0]
         player_dict['name'] = player_info[0].contents[0]
-        player_dict['news'] = (player_box.select('p')[0].contents[0], 
+        player_dict['news'] = (player_box.select('p')[0].contents[0],
                                player_box.select('.impact')[0].contents[0])
         return player_dict
 
@@ -77,14 +78,14 @@ class RWScraper(object):
                'Falcons':   {'fg': 0, 'bg': 1},
                'Saints':    {'fg': 136, 'bg': 0},
                'Chargers':  {'fg': 226, 'bg': 21},
-               'Lions':     {'fg': 27, 'bg': 244}, 
-               'Cowboys':   {'fg': 244, 'bg': 27}, 
+               'Lions':     {'fg': 27, 'bg': 244},
+               'Cowboys':   {'fg': 244, 'bg': 27},
                'Browns':    {'fg': 202, 'bg': 52},
                'Eagles':    {'fg': 231, 'bg': 29},
-               'Steelers':  {'fg': 11, 'bg': 0}, 
+               'Steelers':  {'fg': 11, 'bg': 0},
                'Giants':    {'fg': 9, 'bg': 19},
                'Patriots':  {'fg': 9, 'bg': 19},
-               'Buccaneers':{'fg': 0, 'bg': 9}, 
+               'Buccaneers':{'fg': 0, 'bg': 9},
                'Cardinals': {'fg': 0, 'bg': 1},
                'Chiefs':    {'fg': 196, 'bg': 0},
                'Jaguars':   {'fg': 11, 'bg': 30},
@@ -110,6 +111,6 @@ class RWScraper(object):
             print('%s%s %s %s' % (fg(tcd[team]['fg']), bg(tcd[team]['bg']), team, attr(0)))
             for player in self._team_news[team].keys():
                 for news in self._team_news[team][player]:
-                    print('\t* ' + news[0])
+                    print('\t***** ' + news[0])
                     if impact == True:
                         print('\t\t- ' + news[1].strip())
