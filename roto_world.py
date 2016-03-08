@@ -71,6 +71,7 @@ class RWScraper(object):
             self._date = date
         self._get_player_news()
         os.remove('ghostdriver.log')
+        self.print_news()
 
     def print_news(self, impact=False):
         tcd = {'Broncos':   {'fg': 208, 'bg': 18},
